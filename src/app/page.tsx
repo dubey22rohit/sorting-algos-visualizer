@@ -47,6 +47,12 @@ export default function Home() {
                             />
                         </div>
                     </div>
+                    <div className="flex flex-col items-start justify-start w-3/4">
+                        <h3 className="text-lg">{sortingAlgorithmsInfo[selectedAlgo].title}</h3>
+                        <p className="text-sm text-gray-500 pt-2">
+                            {sortingAlgorithmsInfo[selectedAlgo].description}
+                        </p>
+                    </div>
                     <div>
                         <h2>Time Complexity</h2>
                         <div className="flex flex-col gap-4">

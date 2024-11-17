@@ -12,6 +12,7 @@ export const sortingAlgorithmsOptions = [
 
 export const sortingAlgorithmsInfo: { [key: string]: any } = {
     bubbleSort: {
+        title: 'Bubble Sort',
         description:
             'A simple sorting algorithm that repeatedly steps through the list, compares adjacent elements, and swaps them if they are in the wrong order.',
         bestCase: 'O(n) (when the list is already sorted; only one pass is required)',
@@ -19,6 +20,7 @@ export const sortingAlgorithmsInfo: { [key: string]: any } = {
         worstCase: 'O(n²) (when the list is in reverse order)',
     },
     insertionSort: {
+        title: 'Insertion Sort',
         description:
             'Builds the sorted array one element at a time by picking each element and placing it into its correct position relative to the already sorted portion.',
         bestCase: 'O(n) (when the list is already sorted; only comparisons are needed)',
@@ -26,6 +28,7 @@ export const sortingAlgorithmsInfo: { [key: string]: any } = {
         worstCase: 'O(n²) (when the list is in reverse order)',
     },
     selectionSort: {
+        title: 'Selection Sort',
         description:
             'Divides the list into a sorted and an unsorted section. Finds the minimum (or maximum) in the unsorted section and swaps it into the correct position.',
         bestCase: 'O(n²)',
@@ -33,6 +36,7 @@ export const sortingAlgorithmsInfo: { [key: string]: any } = {
         worstCase: 'O(n²)',
     },
     mergeSort: {
+        title: 'Merge Sort',
         description:
             'A divide-and-conquer algorithm that splits the array into halves, recursively sorts them, and then merges the sorted halves.',
         bestCase: 'O(nlogn)',
@@ -40,6 +44,7 @@ export const sortingAlgorithmsInfo: { [key: string]: any } = {
         averageCase: 'O(nlogn)',
     },
     quickSort: {
+        title: 'Quick Sort',
         description:
             "A divide-and-conquer algorithm that selects a 'pivot' and partitions the array into two subarrays, recursively sorting them.",
         bestCase: 'O(nlogn) (when the pivot divides the array into roughly equal halves)',
