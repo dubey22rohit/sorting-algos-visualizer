@@ -3,11 +3,16 @@
 import Info from '@/components/Info';
 import Select from '@/components/Select';
 import Slider from '@/components/Slider';
-import { generateRandomNumberInRange } from '@/lib/utils';
+import {
+    generateRandomNumberInRange,
+    sortingAlgorithmsInfo,
+    sortingAlgorithmsOptions,
+} from '@/lib/utils';
 import { useEffect, useState } from 'react';
 
 export default function Home() {
     const [arrayToSort, setArrayToSort] = useState<Array<number>>([]);
+    const [selectedAlgo, setSelectedAlgo] = useState<string>('bubbleSort');
     useEffect(() => {
         const tempArr: Array<number> = [];
         for (let i = 0; i < 100; i++) {
@@ -34,15 +39,10 @@ export default function Home() {
                             />
                             <Select
                                 isDisabled={false}
-                                options={[
-                                    { value: 'bubbleSort', label: 'Bubble Sort' },
-                                    { value: 'insertionSort', label: 'Insertion Sort' },
-                                    { value: 'selectionSort', label: 'Selection Sort' },
-                                    { value: 'mergeSort', label: 'Merge Sort' },
-                                    { value: 'quickSort', label: 'Quick Sort' },
-                                ]}
+                                defaultValue={selectedAlgo}
+                                options={sortingAlgorithmsOptions}
                                 handleChange={(e) => {
-                                    console.log(e);
+                                    setSelectedAlgo(e.target.value);
                                 }}
                             />
                         </div>
@@ -50,16 +50,25 @@ export default function Home() {
                     <div>
                         <h2>Time Complexity</h2>
                         <div className="flex flex-col gap-4">
-                            <Info heading="Best Case" value="O(nlogn)" />
-                            <Info heading="Average Case" value="O(n^2)" />
-                            <Info heading="Worst Case" value="O(n^2)" />
+                            <Info
+                                heading="Best Case"
+                                value={sortingAlgorithmsInfo[selectedAlgo].bestCase}
+                            />
+                            <Info
+                                heading="Average Case"
+                                value={sortingAlgorithmsInfo[selectedAlgo].averageCase}
+                            />
+                            <Info
+                                heading="Worst Case"
+                                value={sortingAlgorithmsInfo[selectedAlgo].worstCase}
+                            />
                         </div>
                     </div>
                     <div className="flex justify-center items-end">
                         {arrayToSort.map((value, index) => (
                             <div
                                 key={index}
-                                className="w-1 mx-0.5 bg-blue-900"
+                                className="array-bar w-1 mx-0.5 bg-blue-900"
                                 style={{ height: `${value}px` }}
                             ></div>
                         ))}
