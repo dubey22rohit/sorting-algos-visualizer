@@ -3,6 +3,7 @@
 import Info from '@/components/Info';
 import Select from '@/components/Select';
 import Slider from '@/components/Slider';
+import { runSortingAnimation } from '@/lib/helpers';
 import {
     generateRandomNumberInRange,
     sortingAlgorithmsInfo,
@@ -19,6 +20,12 @@ export default function Home() {
             tempArr.push(generateRandomNumberInRange(40, 100));
         }
         setArrayToSort(tempArr);
+    }, []);
+
+    useEffect(() => {
+        setTimeout(() => {
+            runSortingAnimation(arrayToSort);
+        }, 4000);
     }, []);
 
     return (

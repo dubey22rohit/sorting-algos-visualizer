@@ -20,3 +20,11 @@ body {
     background: var(--background);
     font-family: Arial, Helvetica, sans-serif;
 }
+
+.bar-color {
+    background-color: #00ff00;
+}
+
+.updated-bar-color {
+    background-color: #ff00ff;
+}
