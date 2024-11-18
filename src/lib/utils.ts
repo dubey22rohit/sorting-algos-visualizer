@@ -1,8 +1,10 @@
+import { AlgorithmOptionsType, AlgorithmsDataType } from './types';
+
 export const generateRandomNumberInRange = (min: number, max: number) => {
     return Math.floor(Math.random() * (max - min + 1) + min);
 };
 
-export const sortingAlgorithmsOptions = [
+export const sortingAlgorithmsOptions: Array<AlgorithmOptionsType> = [
     { value: 'bubbleSort', label: 'Bubble Sort' },
     { value: 'insertionSort', label: 'Insertion Sort' },
     { value: 'selectionSort', label: 'Selection Sort' },
@@ -10,7 +12,7 @@ export const sortingAlgorithmsOptions = [
     { value: 'quickSort', label: 'Quick Sort' },
 ];
 
-export const sortingAlgorithmsInfo: { [key: string]: any } = {
+export const sortingAlgorithmsInfo: AlgorithmsDataType = {
     bubbleSort: {
         title: 'Bubble Sort',
         description:

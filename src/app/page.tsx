@@ -3,30 +3,13 @@
 import Info from '@/components/Info';
 import Select from '@/components/Select';
 import Slider from '@/components/Slider';
-import { runSortingAnimation } from '@/lib/helpers';
-import {
-    generateRandomNumberInRange,
-    sortingAlgorithmsInfo,
-    sortingAlgorithmsOptions,
-} from '@/lib/utils';
-import { useEffect, useState } from 'react';
+import { useAlgorithmContext } from '@/hooks/useAlgorithmContext';
+import { AlgorithmType } from '@/lib/types';
+import { sortingAlgorithmsInfo, sortingAlgorithmsOptions } from '@/lib/utils';
 
 export default function Home() {
-    const [arrayToSort, setArrayToSort] = useState<Array<number>>([]);
-    const [selectedAlgo, setSelectedAlgo] = useState<string>('bubbleSort');
-    useEffect(() => {
-        const tempArr: Array<number> = [];
-        for (let i = 0; i < 100; i++) {
-            tempArr.push(generateRandomNumberInRange(40, 100));
-        }
-        setArrayToSort(tempArr);
-    }, []);
-
-    useEffect(() => {
-        setTimeout(() => {
-            runSortingAnimation(arrayToSort);
-        }, 4000);
-    }, []);
+    const { inputArray, runSorting, selectedAlgorithm, setSelectedAlgorithm } =
+        useAlgorithmContext();
 
     return (
         <main className="h-screen w-screen">
@@ -46,18 +29,20 @@ export default function Home() {
                             />
                             <Select
                                 isDisabled={false}
-                                defaultValue={selectedAlgo}
+                                defaultValue={selectedAlgorithm}
                                 options={sortingAlgorithmsOptions}
                                 handleChange={(e) => {
-                                    setSelectedAlgo(e.target.value);
+                                    setSelectedAlgorithm(e.target.value as AlgorithmType);
                                 }}
                             />
                         </div>
                     </div>
                     <div className="flex flex-col items-start justify-start w-3/4">
-                        <h3 className="text-lg">{sortingAlgorithmsInfo[selectedAlgo].title}</h3>
+                        <h3 className="text-lg">
+                            {sortingAlgorithmsInfo[selectedAlgorithm].title}
+                        </h3>
                         <p className="text-sm text-gray-500 pt-2">
-                            {sortingAlgorithmsInfo[selectedAlgo].description}
+                            {sortingAlgorithmsInfo[selectedAlgorithm].description}
                         </p>
                     </div>
                     <div>
@@ -65,23 +50,23 @@ export default function Home() {
                         <div className="flex flex-col gap-4">
                             <Info
                                 heading="Best Case"
-                                value={sortingAlgorithmsInfo[selectedAlgo].bestCase}
+                                value={sortingAlgorithmsInfo[selectedAlgorithm].bestCase}
                             />
                             <Info
                                 heading="Average Case"
-                                value={sortingAlgorithmsInfo[selectedAlgo].averageCase}
+                                value={sortingAlgorithmsInfo[selectedAlgorithm].averageCase}
                             />
                             <Info
                                 heading="Worst Case"
-                                value={sortingAlgorithmsInfo[selectedAlgo].worstCase}
+                                value={sortingAlgorithmsInfo[selectedAlgorithm].worstCase}
                             />
                         </div>
                     </div>
                     <div className="flex justify-center items-end">
-                        {arrayToSort.map((value, index) => (
+                        {inputArray.map((value, index) => (
                             <div
                                 key={index}
-                                className="array-bar w-1 mx-0.5 bg-blue-900"
+                                className="array-bar w-2 mx-0.5"
                                 style={{ height: `${value}px` }}
                             ></div>
                         ))}
