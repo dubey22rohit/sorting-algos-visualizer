@@ -8,8 +8,14 @@ import { AlgorithmType } from '@/lib/types';
 import { runSortingAlgorithm, sortingAlgorithmsInfo, sortingAlgorithmsOptions } from '@/lib/utils';
 
 export default function Home() {
-    const { inputArray, runSorting, selectedAlgorithm, setSelectedAlgorithm } =
-        useAlgorithmContext();
+    const {
+        inputArray,
+        runSorting,
+        selectedAlgorithm,
+        setSelectedAlgorithm,
+        sortingSpeed,
+        setSortingSpeed,
+    } = useAlgorithmContext();
 
     const handleRun = () => {
         runSortingAlgorithm(selectedAlgorithm, inputArray, runSorting);
@@ -26,9 +32,9 @@ export default function Home() {
                         <div className="flex items-center justify-center gap-4">
                             <Slider
                                 isDisabled={false}
-                                value={20}
+                                value={sortingSpeed}
                                 handleChange={(e) => {
-                                    console.log(e);
+                                    setSortingSpeed(parseInt(e.target.value));
                                 }}
                             />
                             <Select

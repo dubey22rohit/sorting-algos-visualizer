@@ -16,6 +16,7 @@ const Slider = ({ min = 100, max = 400, step = 10, ...props }: SliderProps) => {
                 min={min}
                 max={max}
                 step={step}
+                value={props.value}
                 onChange={props.handleChange}
                 className="w-full h-2 rounded-lg appearance-none cursor-pointer dark:bg-gray-800"
             />

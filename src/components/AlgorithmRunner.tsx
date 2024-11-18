@@ -10,6 +10,7 @@ interface AlgorithmRunnerProps {
 export const AlgorithmRunner = (props: AlgorithmRunnerProps) => {
     const [inputArray, setInputArray] = useState<Array<number>>([]);
     const [selectedAlgorithm, setSelectedAlgorithm] = useState<AlgorithmType>('bubbleSort');
+    const [sortingSpeed, setSortingSpeed] = useState<number>(100);
 
     useEffect(() => {
         init();
@@ -34,6 +35,7 @@ export const AlgorithmRunner = (props: AlgorithmRunnerProps) => {
     };
 
     const runSorting = (animations: AnimationArrayType) => {
+        const invertedSortingSpeed = (1 / sortingSpeed) * 200;
         const arrayBars = document.getElementsByClassName(
             'array-bar',
         ) as HTMLCollectionOf<HTMLElement>;
@@ -58,11 +60,14 @@ export const AlgorithmRunner = (props: AlgorithmRunnerProps) => {
                 const [barIndexes, isSwap] = animation;
                 if (!isSwap) {
                     updateClassList(barIndexes, 'updated-bar-color', 'bar-color');
+                    setTimeout(() => {
+                        updateClassList(barIndexes, 'bar-color', 'updated-bar-color');
+                    }, invertedSortingSpeed);
                 } else {
                     const [barIndex, updatedHeight] = barIndexes;
                     updateHeight(barIndex, updatedHeight);
                 }
-            }, index);
+            }, invertedSortingSpeed * index);
         });
     };
 
@@ -71,6 +76,8 @@ export const AlgorithmRunner = (props: AlgorithmRunnerProps) => {
         selectedAlgorithm,
         runSorting,
         setSelectedAlgorithm,
+        sortingSpeed,
+        setSortingSpeed,
     };
 
     return (

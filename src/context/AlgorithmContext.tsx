@@ -6,6 +6,8 @@ export interface AlgorithmContextType {
     selectedAlgorithm: AlgorithmType;
     setSelectedAlgorithm: (algorithm: AlgorithmType) => void;
     runSorting: (animations: AnimationArrayType) => void;
+    sortingSpeed: number;
+    setSortingSpeed: (sortingSpeed: number) => void;
 }
 
 export const AlgorithmContext = createContext<AlgorithmContextType | undefined>(undefined);
