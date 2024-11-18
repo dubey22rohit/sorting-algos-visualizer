@@ -5,11 +5,15 @@ import Select from '@/components/Select';
 import Slider from '@/components/Slider';
 import { useAlgorithmContext } from '@/hooks/useAlgorithmContext';
 import { AlgorithmType } from '@/lib/types';
-import { sortingAlgorithmsInfo, sortingAlgorithmsOptions } from '@/lib/utils';
+import { runSortingAlgorithm, sortingAlgorithmsInfo, sortingAlgorithmsOptions } from '@/lib/utils';
 
 export default function Home() {
     const { inputArray, runSorting, selectedAlgorithm, setSelectedAlgorithm } =
         useAlgorithmContext();
+
+    const handleRun = () => {
+        runSortingAlgorithm(selectedAlgorithm, inputArray, runSorting);
+    };
 
     return (
         <main className="h-screen w-screen">
@@ -35,6 +39,12 @@ export default function Home() {
                                     setSelectedAlgorithm(e.target.value as AlgorithmType);
                                 }}
                             />
+                            <button
+                                className="flex items-center justify-center"
+                                onClick={handleRun}
+                            >
+                                Run
+                            </button>
                         </div>
                     </div>
                     <div className="flex flex-col items-start justify-start w-3/4">

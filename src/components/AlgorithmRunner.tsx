@@ -1,6 +1,6 @@
 'use client';
 import { AlgorithmContext } from '@/context/AlgorithmContext';
-import { AlgorithmType } from '@/lib/types';
+import { AlgorithmType, AnimationArrayType } from '@/lib/types';
 import { generateRandomNumberInRange } from '@/lib/utils';
 import { ReactNode, useEffect, useState } from 'react';
 
@@ -33,21 +33,37 @@ export const AlgorithmRunner = (props: AlgorithmRunnerProps) => {
         }, 0);
     };
 
-    const runSorting = () => {
+    const runSorting = (animations: AnimationArrayType) => {
         const arrayBars = document.getElementsByClassName(
             'array-bar',
         ) as HTMLCollectionOf<HTMLElement>;
 
-        const updateClassList = (indexes: Array<number>) => {
+        const updateClassList = (
+            indexes: Array<number>,
+            addClassName: string,
+            removeClassName: string,
+        ) => {
             indexes.forEach((index) => {
-                arrayBars[index].classList.add('updated-bar-color');
-                arrayBars[index].classList.remove('bar-color');
+                arrayBars[index].classList.add(addClassName);
+                arrayBars[index].classList.remove(removeClassName);
             });
         };
 
         const updateHeight = (barIndex: number, modifiedHeight?: number) => {
             arrayBars[barIndex].style.height = `${modifiedHeight}px`;
         };
+
+        animations.forEach((animation, index) => {
+            setTimeout(() => {
+                const [barIndexes, isSwap] = animation;
+                if (!isSwap) {
+                    updateClassList(barIndexes, 'updated-bar-color', 'bar-color');
+                } else {
+                    const [barIndex, updatedHeight] = barIndexes;
+                    updateHeight(barIndex, updatedHeight);
+                }
+            }, index);
+        });
     };
 
     const contextValue = {

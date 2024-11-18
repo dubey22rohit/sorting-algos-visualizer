@@ -1,4 +1,11 @@
-import { AlgorithmOptionsType, AlgorithmsDataType } from './types';
+import { runBubbleSort } from '@/algorithms/BubbleSort';
+import { runInsertionSort } from '@/algorithms/InsertionSort';
+import {
+    AlgorithmOptionsType,
+    AlgorithmsDataType,
+    AlgorithmType,
+    AnimationArrayType,
+} from './types';
 
 export const generateRandomNumberInRange = (min: number, max: number) => {
     return Math.floor(Math.random() * (max - min + 1) + min);
@@ -54,4 +61,17 @@ export const sortingAlgorithmsInfo: AlgorithmsDataType = {
             'O(n²) (when the pivot is the smallest or largest element, leading to unbalanced partitions)',
         averageCase: 'O(nlogn)',
     },
+};
+
+export const runSortingAlgorithm = (
+    selectedAlgo: AlgorithmType,
+    input: Array<number>,
+    runSorting: (animations: AnimationArrayType) => void,
+) => {
+    switch (selectedAlgo) {
+        case 'bubbleSort':
+            runBubbleSort(input, runSorting);
+        case 'insertionSort':
+            runInsertionSort(input, runSorting);
+    }
 };
