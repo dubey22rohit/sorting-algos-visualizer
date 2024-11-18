@@ -14,12 +14,23 @@ export const AlgorithmRunner = (props: AlgorithmRunnerProps) => {
 
     useEffect(() => {
         init();
+        window.addEventListener('resize', init);
+        return () => {
+            window.removeEventListener('resize', init);
+        };
     }, []);
 
     const init = () => {
+        const contentContainer = document.getElementById('main-content');
+        const screenWidth = contentContainer?.getBoundingClientRect().width || 1920;
+        const screenHeight = contentContainer?.getBoundingClientRect().height || 1080;
+
+        const numBars = screenWidth / 10;
+        const maxLineHeight = Math.max(screenHeight * 0.5, 100);
+
         const tempArr: Array<number> = [];
-        for (let i = 0; i < 100; i++) {
-            tempArr.push(generateRandomNumberInRange(40, 100));
+        for (let i = 0; i < numBars; i++) {
+            tempArr.push(generateRandomNumberInRange(40, maxLineHeight));
         }
         setInputArray(tempArr);
 
@@ -60,15 +71,29 @@ export const AlgorithmRunner = (props: AlgorithmRunnerProps) => {
                 const [barIndexes, isSwap] = animation;
                 if (!isSwap) {
                     updateClassList(barIndexes, 'updated-bar-color', 'bar-color');
-                    setTimeout(() => {
-                        updateClassList(barIndexes, 'bar-color', 'updated-bar-color');
-                    }, invertedSortingSpeed);
+                    setTimeout(
+                        () => updateClassList(barIndexes, 'bar-color', 'updated-bar-color'),
+                        invertedSortingSpeed,
+                    );
                 } else {
                     const [barIndex, updatedHeight] = barIndexes;
                     updateHeight(barIndex, updatedHeight);
                 }
             }, invertedSortingSpeed * index);
         });
+
+        setTimeout(() => {
+            Array.from(arrayBars).forEach((bar) => {
+                bar.classList.add('bar-animation', 'updated-bar-color');
+                bar.classList.remove('bar-color');
+            });
+            setTimeout(() => {
+                Array.from(arrayBars).forEach((bar) => {
+                    bar.classList.remove('bar-animation', 'updated-bar-color');
+                    bar.classList.add('bar-color');
+                });
+            }, 1000);
+        }, animations.length * invertedSortingSpeed);
     };
 
     const contextValue = {

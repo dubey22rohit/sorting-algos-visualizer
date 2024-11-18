@@ -1,5 +1,6 @@
 import { runBubbleSort } from '@/algorithms/BubbleSort';
 import { runInsertionSort } from '@/algorithms/InsertionSort';
+import { runSelectionSort } from '@/algorithms/SelectionSort';
 import {
     AlgorithmOptionsType,
     AlgorithmsDataType,
@@ -73,5 +74,7 @@ export const runSortingAlgorithm = (
             runBubbleSort(input, runSorting);
         case 'insertionSort':
             runInsertionSort(input, runSorting);
+        case 'selectionSort':
+            runSelectionSort(input, runSorting);
     }
 };

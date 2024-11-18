@@ -22,7 +22,7 @@ export default function Home() {
     };
 
     return (
-        <main className="h-screen w-screen">
+        <main className="h-screen w-screen p-4">
             <div className="flex h-full justify-center">
                 <div id="main-content" className="flex max-w-[120rem] w-full flex-col lg:px-0 px-4">
                     <div className="h-[6rem] flex items-center justify-between w-full">
@@ -46,43 +46,45 @@ export default function Home() {
                                 }}
                             />
                             <button
-                                className="flex items-center justify-center"
+                                className="flex items-center justify-center bg-green-500 p-2 rounded-lg"
                                 onClick={handleRun}
                             >
                                 Run
                             </button>
                         </div>
                     </div>
-                    <div className="flex flex-col items-start justify-start w-3/4">
-                        <h3 className="text-lg">
-                            {sortingAlgorithmsInfo[selectedAlgorithm].title}
-                        </h3>
-                        <p className="text-sm text-gray-500 pt-2">
-                            {sortingAlgorithmsInfo[selectedAlgorithm].description}
-                        </p>
-                    </div>
-                    <div>
-                        <h2>Time Complexity</h2>
-                        <div className="flex flex-col gap-4">
-                            <Info
-                                heading="Best Case"
-                                value={sortingAlgorithmsInfo[selectedAlgorithm].bestCase}
-                            />
-                            <Info
-                                heading="Average Case"
-                                value={sortingAlgorithmsInfo[selectedAlgorithm].averageCase}
-                            />
-                            <Info
-                                heading="Worst Case"
-                                value={sortingAlgorithmsInfo[selectedAlgorithm].worstCase}
-                            />
+                    <div className="flex items-center justify-between mb-12">
+                        <div className="flex flex-col items-start justify-start w-1/2 p-4">
+                            <h3 className="text-xl font-bold">
+                                {sortingAlgorithmsInfo[selectedAlgorithm].title}
+                            </h3>
+                            <p className="text-gray-400 pt-2 text-base">
+                                {sortingAlgorithmsInfo[selectedAlgorithm].description}
+                            </p>
+                        </div>
+                        <div className="flex flex-col items-center justify-between bg-purple-600 rounded-lg w-1/2 p-4">
+                            <h2 className="text-center font-bold text-xl mb-2">Time Complexity</h2>
+                            <div className="flex flex-col gap-4">
+                                <Info
+                                    heading="Best Case"
+                                    value={sortingAlgorithmsInfo[selectedAlgorithm].bestCase}
+                                />
+                                <Info
+                                    heading="Average Case"
+                                    value={sortingAlgorithmsInfo[selectedAlgorithm].averageCase}
+                                />
+                                <Info
+                                    heading="Worst Case"
+                                    value={sortingAlgorithmsInfo[selectedAlgorithm].worstCase}
+                                />
+                            </div>
                         </div>
                     </div>
-                    <div className="flex justify-center items-end">
+                    <div className="w-full mx-auto flex justify-center items-end px-4">
                         {inputArray.map((value, index) => (
                             <div
                                 key={index}
-                                className="array-bar w-2 mx-0.5"
+                                className="array-bar w-1.5 mx-0.5"
                                 style={{ height: `${value}px` }}
                             ></div>
                         ))}

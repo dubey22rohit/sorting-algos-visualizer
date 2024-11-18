@@ -14,3 +14,13 @@ const selectionSort = (input: Array<number>, animations: AnimationArrayType) => 
         [input[i], input[minIndex]] = [input[minIndex], input[i]];
     }
 };
+
+export const runSelectionSort = (
+    input: Array<number>,
+    runSorting: (animations: AnimationArrayType) => void,
+) => {
+    const animations: AnimationArrayType = [];
+    const tempArray = input.slice();
+    selectionSort(tempArray, animations);
+    runSorting(animations);
+};
