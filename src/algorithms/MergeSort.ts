@@ -1,37 +1,64 @@
-const merge = (input: Array<number>, start: number, end: number) => {
-    let mid = start + (end - start) / 2;
-    let i = start;
-    let j = mid + 1;
+import { AnimationArrayType } from '@/lib/types';
 
-    let temp: Array<number> = [];
+function merge(
+    input: number[],
+    start: number,
+    mid: number,
+    end: number,
+    animations: AnimationArrayType,
+) {
+    const left = input.slice(start, mid);
+    const right = input.slice(mid, end);
 
-    while (i <= mid && j <= end) {
-        if (input[i] < input[j]) {
-            temp.push(input[i]);
-            i++;
+    let i = 0;
+    let j = 0;
+    let k = start;
+    while (i < left.length && j < right.length) {
+        animations.push([[start + i, mid + j], false]);
+        if (left[i] <= right[j]) {
+            animations.push([[k, left[i]], true]);
+            input[k] = left[i];
+            i += 1;
         } else {
-            temp.push(input[j]);
-            j++;
+            animations.push([[k, right[j]], true]);
+            input[k] = right[j];
+            j += 1;
+        }
+        k++;
+    }
+    while (i < left.length) {
+        animations.push([[start + i], false]);
+        animations.push([[k, left[i]], true]);
+        input[k] = left[i];
+        i += 1;
+        k += 1;
+    }
+    while (j < right.length) {
+        animations.push([[mid + j], false]);
+        animations.push([[k, right[j]], true]);
+        input[k] = right[j];
+        j += 1;
+        k += 1;
+    }
+}
+const mergeSort = (input: Array<number>, animations: AnimationArrayType) => {
+    for (let k = 1; k < input.length; k = 2 * k) {
+        for (let i = 0; i < input.length; i += 2 * k) {
+            const start = i;
+            const mid = i + k;
+            const end = Math.min(i + 2 * k, input.length);
+            merge(input, start, mid, end, animations);
         }
     }
-
-    while (i <= mid) {
-        temp.push(input[i]);
-        i++;
-    }
-
-    while (j <= end) {
-        temp.push(input[j]);
-        j++;
-    }
-
-    for (let i = start; i <= end; i++) {
-        input[start + i] = temp[i];
-    }
+    return animations;
 };
-const mergeSort = (input: Array<number>, start: number, end: number) => {
-    let mid = start + (end - start) / 2;
-    mergeSort(input, start, mid);
-    mergeSort(input, mid + 1, end);
-    merge(input, start, end);
+
+export const runMergeSort = (
+    input: Array<number>,
+    runSorting: (animations: AnimationArrayType) => void,
+) => {
+    let animations: AnimationArrayType = [];
+    const tempArray = input.slice();
+    animations = mergeSort(tempArray, animations);
+    runSorting(animations);
 };

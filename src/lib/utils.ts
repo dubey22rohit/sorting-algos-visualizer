@@ -1,5 +1,7 @@
 import { runBubbleSort } from '@/algorithms/BubbleSort';
 import { runInsertionSort } from '@/algorithms/InsertionSort';
+import { runMergeSort } from '@/algorithms/MergeSort';
+import { runQuickSort } from '@/algorithms/QuickSort';
 import { runSelectionSort } from '@/algorithms/SelectionSort';
 import {
     AlgorithmOptionsType,
@@ -76,5 +78,9 @@ export const runSortingAlgorithm = (
             runInsertionSort(input, runSorting);
         case 'selectionSort':
             runSelectionSort(input, runSorting);
+        case 'quickSort':
+            runQuickSort(input, runSorting);
+        case 'mergeSort':
+            runMergeSort(input, runSorting);
     }
 };

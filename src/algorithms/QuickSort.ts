@@ -1,38 +1,53 @@
-const partition = (input: Array<number>, start: number, end: number): number => {
-    let pivot = input[start];
-    let count = 0;
-    for (let i = start + 1; i <= end; i++) {
-        if (input[i] <= pivot) {
-            count++;
-        }
-    }
+import { AnimationArrayType } from '@/lib/types';
 
-    let pivotIndex = start + count;
-    [input[start], input[pivotIndex]] = [input[pivotIndex], input[start]];
-
+const partition = (
+    input: Array<number>,
+    start: number,
+    end: number,
+    animations: AnimationArrayType,
+): number => {
     let i = start;
-    let j = end;
-
-    while (i <= pivotIndex && j > pivotIndex) {
-        while (i <= pivotIndex && input[i] <= pivot) {
-            i++;
+    let j = end + 1;
+    const pivot = input[start];
+    while (true) {
+        while (input[++i] <= pivot) {
+            if (i === end) break;
+            animations.push([[i], false]);
         }
-        while (j > pivotIndex && input[j] > pivot) {
-            j--;
+        while (input[--j] >= pivot) {
+            if (j === start) break;
+            animations.push([[j], false]);
         }
-        if (i <= pivotIndex && j > pivotIndex) {
-            [input[i], input[j]] = [input[j], input[i]];
-            i++;
-            j--;
-        }
+        if (j <= i) break;
+        animations.push([[i, input[j]], true]);
+        animations.push([[j, input[i]], true]);
+        [input[i], input[j]] = [input[j], input[i]];
     }
-    return pivotIndex;
+    animations.push([[start, input[j]], true]);
+    animations.push([[j, input[start]], true]);
+    [input[start], input[j]] = [input[j], input[start]];
+    return j;
 };
-const quickSort = (input: Array<number>, start: number, end: number) => {
+const quickSort = (
+    input: Array<number>,
+    start: number,
+    end: number,
+    animations: AnimationArrayType,
+) => {
     if (start >= end) {
         return;
     }
-    let pivot = partition(input, start, end);
-    quickSort(input, start, pivot - 1);
-    quickSort(input, pivot + 1, end);
+    let pivot = partition(input, start, end, animations);
+    quickSort(input, start, pivot - 1, animations);
+    quickSort(input, pivot + 1, end, animations);
+};
+
+export const runQuickSort = (
+    input: Array<number>,
+    runSorting: (animations: AnimationArrayType) => void,
+) => {
+    const animations: AnimationArrayType = [];
+    const tempArray = input.slice();
+    quickSort(tempArray, 0, tempArray.length - 1, animations);
+    runSorting(animations);
 };
