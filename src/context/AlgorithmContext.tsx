@@ -8,6 +8,7 @@ export interface AlgorithmContextType {
     runSorting: (animations: AnimationArrayType) => void;
     sortingSpeed: number;
     setSortingSpeed: (sortingSpeed: number) => void;
+    init: () => void;
 }
 
 export const AlgorithmContext = createContext<AlgorithmContextType | undefined>(undefined);

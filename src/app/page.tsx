@@ -15,6 +15,7 @@ export default function Home() {
         setSelectedAlgorithm,
         sortingSpeed,
         setSortingSpeed,
+        init,
     } = useAlgorithmContext();
 
     const handleRun = () => {
@@ -26,17 +27,10 @@ export default function Home() {
             <div className="flex h-full justify-center">
                 <div id="main-content" className="flex max-w-[120rem] w-full flex-col lg:px-0 px-4">
                     <div className="h-[6rem] flex items-center justify-between w-full">
-                        <h1 className="text-gray-400 text-2xl font-light md:flex">
+                        <h1 className="text-gray-400 text-2xl font-light">
                             Sorting Algorithms Visualiser
                         </h1>
                         <div className="flex items-center justify-center gap-4">
-                            <Slider
-                                isDisabled={false}
-                                value={sortingSpeed}
-                                handleChange={(e) => {
-                                    setSortingSpeed(parseInt(e.target.value));
-                                }}
-                            />
                             <Select
                                 isDisabled={false}
                                 defaultValue={selectedAlgorithm}
@@ -45,16 +39,29 @@ export default function Home() {
                                     setSelectedAlgorithm(e.target.value as AlgorithmType);
                                 }}
                             />
+                            <Slider
+                                isDisabled={false}
+                                value={sortingSpeed}
+                                handleChange={(e) => {
+                                    setSortingSpeed(parseInt(e.target.value));
+                                }}
+                            />
                             <button
-                                className="flex items-center justify-center bg-green-500 p-2 rounded-lg"
+                                className="flex items-center justify-center bg-secondaryTint p-2 rounded-lg"
                                 onClick={handleRun}
                             >
                                 Run
                             </button>
+                            <button
+                                className="flex items-center justify-center bg-primaryTint p-2 rounded-lg"
+                                onClick={init}
+                            >
+                                Reset
+                            </button>
                         </div>
                     </div>
-                    <div className="flex items-center justify-between mb-12">
-                        <div className="flex flex-col items-start justify-start w-1/2 p-4">
+                    <div className="flex items-center justify-between mb-12 bg-secondaryBackground p-6 rounded-lg">
+                        <div className="flex flex-col items-start justify-start w-2/3 p-4">
                             <h3 className="text-xl font-bold">
                                 {sortingAlgorithmsInfo[selectedAlgorithm].title}
                             </h3>
@@ -62,7 +69,7 @@ export default function Home() {
                                 {sortingAlgorithmsInfo[selectedAlgorithm].description}
                             </p>
                         </div>
-                        <div className="flex flex-col items-center justify-between bg-purple-600 rounded-lg w-1/2 p-4">
+                        <div className="flex flex-col items-center justify-between bg-purple-600 rounded-lg w-max p-4">
                             <h2 className="text-center font-bold text-xl mb-2">Time Complexity</h2>
                             <div className="flex flex-col gap-4">
                                 <Info

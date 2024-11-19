@@ -11,6 +11,9 @@
     :root {
         --background: #0a0a0a;
         --foreground: #ededed;
+        --secondary-background: #13161b;
+        --primary-tint: #af52de;
+        --secondary-tint: #47cd89;
     }
 }
 
@@ -21,11 +24,11 @@ body {
 }
 
 .bar-color {
-    background-color: #00ff00;
+    background-color: #0cec7c;
 }
 
 .updated-bar-color {
-    background-color: #ff00ff;
+    background-color: #af52de;
 }
 
 @keyframes barAnimation {

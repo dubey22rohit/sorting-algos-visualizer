@@ -25,17 +25,17 @@ export const sortingAlgorithmsInfo: AlgorithmsDataType = {
         title: 'Bubble Sort',
         description:
             'A simple sorting algorithm that repeatedly steps through the list, compares adjacent elements, and swaps them if they are in the wrong order.',
-        bestCase: 'O(n) (when the list is already sorted; only one pass is required)',
+        bestCase: 'O(n) (list is already sorted)',
         averageCase: 'O(n^2)',
-        worstCase: 'O(n²) (when the list is in reverse order)',
+        worstCase: 'O(n²) (list is in reverse order)',
     },
     insertionSort: {
         title: 'Insertion Sort',
         description:
             'Builds the sorted array one element at a time by picking each element and placing it into its correct position relative to the already sorted portion.',
-        bestCase: 'O(n) (when the list is already sorted; only comparisons are needed)',
+        bestCase: 'O(n) (list is already sorted)',
         averageCase: 'O(n^2)',
-        worstCase: 'O(n²) (when the list is in reverse order)',
+        worstCase: 'O(n²) (list is in reverse order)',
     },
     selectionSort: {
         title: 'Selection Sort',
@@ -50,17 +50,17 @@ export const sortingAlgorithmsInfo: AlgorithmsDataType = {
         description:
             'A divide-and-conquer algorithm that splits the array into halves, recursively sorts them, and then merges the sorted halves.',
         bestCase: 'O(nlogn)',
-        worstCase: 'O(nlogn)',
         averageCase: 'O(nlogn)',
+        worstCase: 'O(nlogn)',
     },
     quickSort: {
         title: 'Quick Sort',
         description:
             "A divide-and-conquer algorithm that selects a 'pivot' and partitions the array into two subarrays, recursively sorting them.",
         bestCase: 'O(nlogn) (when the pivot divides the array into roughly equal halves)',
+        averageCase: 'O(nlogn)',
         worstCase:
             'O(n²) (when the pivot is the smallest or largest element, leading to unbalanced partitions)',
-        averageCase: 'O(nlogn)',
     },
 };
 

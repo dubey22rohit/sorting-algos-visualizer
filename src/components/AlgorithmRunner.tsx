@@ -103,6 +103,7 @@ export const AlgorithmRunner = (props: AlgorithmRunnerProps) => {
         setSelectedAlgorithm,
         sortingSpeed,
         setSortingSpeed,
+        init,
     };
 
     return (
