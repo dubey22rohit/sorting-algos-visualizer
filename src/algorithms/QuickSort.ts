@@ -37,7 +37,7 @@ const quickSort = (
     if (start >= end) {
         return;
     }
-    let pivot = partition(input, start, end, animations);
+    const pivot = partition(input, start, end, animations);
     quickSort(input, start, pivot - 1, animations);
     quickSort(input, pivot + 1, end, animations);
 };
